@@ -26,7 +26,7 @@ namespace BimVizServerApi.Client.Test
         private void Form1_Load(object sender, EventArgs e)
         {
             mUserName = "";
-            mApiClient = new BimVizServerApiClient("", "");
+            mApiClient = new BimVizServerApiClient("", ""); //公有云试用url:http://cloud.bimviz.io
 
             btnUploadModelFiles.Enabled = false;
             btnSceneBuild.Enabled = false;
