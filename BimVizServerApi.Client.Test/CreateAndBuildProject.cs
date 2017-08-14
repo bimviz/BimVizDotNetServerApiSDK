@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -56,7 +57,7 @@ namespace BimVizServerApi.Client.Test
             if (result != null && result.IsSuccess)
             {
                 mProjectId = result.ProjectId;
-                btnUploadModelFiles.Enabled = true;
+                btnUploadModelFiles.Enabled = true;               
             }
 
             lblMessage.Text = result.Message;
@@ -71,14 +72,27 @@ namespace BimVizServerApi.Client.Test
                 return;
             }
 
-            lblMessage.Text = "正在上传项目模型...";
-            ResultModel result = mApiClient.ModelProjectManager.UploadProjectFiles(mUserName, mProjectId, files);
+            lblMessage.Text = "正在上传项目模型...";            
+            mApiClient.ModelProjectManager.UploadProjectFileAsync(mUserName, mProjectId, files[0], UploadProjectFileProgress, UploadProjectFileCompleted);
+            /*ResultModel result = mApiClient.ModelProjectManager.UploadProjectFiles(mUserName, mProjectId, files);
             if (result.IsSuccess)
             {
                 btnSceneBuild.Enabled = true;
             }
 
-            lblMessage.Text = result.Message;
+            lblMessage.Text = result.Message;*/
+        }
+        
+        private void UploadProjectFileProgress(object sender, UploadProgressChangedEventArgs e)
+        {            
+            string test = string.Format("上传文件{0}/{1}，文件上传进度：{2}", e.BytesSent, e.TotalBytesToSend, e.ProgressPercentage);
+            progressBar.Value = e.ProgressPercentage;
+            lblMessage.Text = test;           
+        }
+
+        private void UploadProjectFileCompleted(object sender, UploadFileCompletedEventArgs e)
+        {
+            lblMessage.Text = "文件上传完成！";
         }
 
         private void btnSceneBuild_Click(object sender, EventArgs e)

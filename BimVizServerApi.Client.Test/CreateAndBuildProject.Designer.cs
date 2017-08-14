@@ -35,6 +35,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnSceneBuild = new System.Windows.Forms.Button();
             this.lblMessage = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // label1
@@ -104,11 +105,19 @@
             this.lblMessage.TabIndex = 6;
             this.lblMessage.Text = "消息";
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(35, 190);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(233, 17);
+            this.progressBar.TabIndex = 7;
+            // 
             // CreateAndBuildProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 199);
+            this.ClientSize = new System.Drawing.Size(322, 217);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.btnSceneBuild);
             this.Controls.Add(this.label3);
@@ -133,6 +142,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSceneBuild;
         private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 

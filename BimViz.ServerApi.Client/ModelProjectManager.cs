@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using BimViz.ServerApi.Client.Model;
 using RestSharp;
@@ -11,11 +12,13 @@ namespace BimViz.ServerApi.Client
 {
     public class ModelProjectManager
     {
+        string mUrl;
         string mToken;
         RestClient mRestClient;
 
-        public ModelProjectManager(RestClient client, string token)
+        public ModelProjectManager(string url, RestClient client, string token)
         {
+            mUrl = url;
             mToken = token;
             mRestClient = client;
         }
@@ -75,6 +78,21 @@ namespace BimViz.ServerApi.Client
 
             return res.Data;
         }
+
+        public void UploadProjectFileAsync(string userName, string projectId, string fileName, UploadProgressChangedEventHandler progressChanged,
+        UploadFileCompletedEventHandler fileCompleted)
+        {
+            string url = mUrl + "/api/project/UploadProjectFiles";
+            System.Net.WebClient client = new System.Net.WebClient();
+            client.Headers.Add("Authorization", "bearer " + mToken);
+            client.QueryString.Add("username", userName);
+            client.QueryString.Add("projid", projectId);
+
+            client.UploadProgressChanged += progressChanged;
+            client.UploadFileCompleted += fileCompleted;
+            client.UploadFileAsync(new Uri(url), "POST", fileName);
+        }
+
 
         public ResultModel RemoveProjectFile(string userName, string projectId, string fileName)
         {

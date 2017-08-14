@@ -38,7 +38,7 @@ namespace BimViz.ServerApi.Client
             mToken = GetToken(devkey);
             
             mProjectBuildManager = new ProjectBuildManager(restClient, mToken);
-            mModelProjectManager = new ModelProjectManager(restClient, mToken);
+            mModelProjectManager = new ModelProjectManager(mUrl, restClient, mToken);
         }
 
         private string GetToken(string devkey)
