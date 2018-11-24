@@ -22,7 +22,7 @@ namespace BimViz.ServerApi.Client.Model
         public int State { get; set; }
         public BVProject()
         {
-            State = 1;
+            State = -1;
         }
     }
 }

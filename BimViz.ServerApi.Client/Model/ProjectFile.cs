@@ -11,5 +11,7 @@ namespace BimViz.ServerApi.Client.Model
         public long Size { get; set; }
 
         public string Datetime { get; set; }
+
+        public bool Load { get; set; }
     }
 }
